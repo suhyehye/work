@@ -1,0 +1,46 @@
+import os
+import shutil
+
+imgDirPath = r"C:\Users\alchera\Desktop\0403_gg"
+saveDirPath = r"C:\Users\alchera\Desktop\0403_re"
+
+files = os.listdir(imgDirPath)
+
+for file in files:
+    fname, ext = os.path.splitext(file)
+    fPath = os.path.join(imgDirPath, file)
+    if os.path.isfile(fPath):
+        f = open(fPath, "r", encoding="utf-8")
+        className = ""
+        newImgName = fname[:-4] + ext
+
+        oriImagePath = os.path.join(imgDirPath, fname + ext)
+        newImagePath = os.path.join(saveDirPath, newImgName)
+
+        shutil.copy2(oriImagePath, newImagePath)
+
+
+
+import os, json
+import shutil #파일 복사
+
+imgDirPath = r"C:\Users\alchera\Desktop\unk_cle"
+saveDirPath = r"C:\Users\alchera\Desktop\unk_rename"
+
+files = os.listdir(imgDirPath) #json 파일은 리스트 형식으로 가져옴
+
+for file in files:
+    fname, ext = os.path.splitext(file) #파일의 이름을 파일명과 확장자명으로 나눔
+    fPath = os.path.join(imgDirPath, file)
+    if os.path.isfile(fPath):
+        f = open(fPath, "r", encoding="utf-8") # json파일을 읽기모드로 열기
+        className = "cle"
+        newImgName = fname[0:-3] + "_" + className + ext # newImgName은 파일명(확장자명을 뺀) + classname에 할당된 값 + ".jpg"
+
+        oriImagePath = os.path.join(imgDirPath, fname[0:-3] + ext)
+        newImagePath = os.path.join(saveDirPath, newImgName)
+
+        shutil.copy2(oriImagePath, newImagePath) #파일 복사
+
+
+

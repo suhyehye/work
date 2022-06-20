@@ -1,0 +1,55 @@
+import os
+import shutil
+
+path1 = r"C:\Users\kjw\Desktop\Skeleton\merge"
+path2 = r"C:\Users\kjw\Desktop\Skeleton\merge_vis"
+
+ori_img = []
+ori_json = []
+vis_file = []
+img_path = []
+json_path = []
+vis_path = []
+
+for root, dirs, files in os.walk(path1):
+    rootpath = os.path.join(os.path.abspath(path1), root)
+
+    for file in files:
+        name,ext = os.path.splitext(file)
+        if ext == ".jpg":
+            filepath = os.path.join(rootpath, file)
+            ori_img.append(file)
+            img_path.append(filepath)
+
+    for file in files:
+        name,ext = os.path.splitext(file)
+        if ext == ".json":
+            filepath = os.path.join(rootpath, file)
+            ori_json.append(file)
+            json_path.append(filepath)
+
+for root, dirs, files in os.walk(path2):
+    rootpath = os.path.join(os.path.abspath(path1), root)
+
+    for file in files:
+        filepath = os.path.join(rootpath, file)
+        vis_file.append(file)
+        vis_path.append(filepath)
+
+for i in ori_img:
+    if i not in vis_file:
+        name, ext = os.path.splitext(i)
+
+        filename = os.path.basename(i)
+
+        split = filename.split('_')
+        foldername = '_'.join(split[:3])
+
+        img = os.path.join(path1,foldername,i)
+        json = os.path.join(path1,foldername,name+".json")
+        os.remove(img)
+        os.remove(json)
+        print(img)
+        print(json)
+
+# vis 폴더와 ori 폴더를 비교하여 vis 폴더에 없는 이미지,json 파일 삭제

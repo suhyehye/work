@@ -1,0 +1,51 @@
+import os
+import shutil
+
+path1 = r"C:\Users\kjw\Desktop\GSIL_2\DONE\treed"
+path2 = r"C:\Users\kjw\Desktop\GSIL_2\DONE\a"
+
+path_json = []
+path_dir = []
+
+fimport os
+import shutil
+
+path1 = r"C:\Users\kjw\Desktop\GSIL_2\DONE\alturk"
+path2 = r"C:\Users\kjw\Desktop\GSIL_2\DONE\a"
+
+path_json = []
+path_dir = []
+
+for root, dirs, files in os.walk(path1):
+    rootpath = os.path.join(os.path.abspath(path1), root)
+
+    for file in files:
+        filepath = os.path.join(rootpath, file)
+        path_json.append(filepath)
+
+file1 = os.listdir(r"C:\Users\kjw\Desktop\GSIL_2\DONE\alturk")
+
+file_json = [file for file in file1 if file.endswith(".json")]
+
+file_dir = os.listdir(path2)
+
+'''
+for i in file1 :
+   name,ext = os.path.splitext(i)
+   tmp = name.split("_")
+   path_folder = os.path.join(path1,tmp[0]+"_"+tmp[1]+"_"+tmp[2])
+   os.makedirs(path_folder,exist_ok=True)
+'''
+
+for i in file_json:
+    name,ext = os.path.splitext(i)
+    tmp = name.split("_")
+    a = tmp[0]+"_"+tmp[1]+"_"+tmp[2]
+    for j in file_dir:
+        if a == j:
+            path_json = os.path.join(path1,i)
+            path_dir = os.path.join(path2,j)
+            shutil.move(path_json,path_dir)
+            print(path_json,path_dir)
+
+# 파일 앞에 이름을 따서 폴더 생성, 폴더랑 파일 이름이 같은 거 파일 이동

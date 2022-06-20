@@ -1,0 +1,60 @@
+import os
+import shutil
+
+imgDirPath = r"D:\test\sampling"
+saveDirPath = r"C:\Users\alchera\Desktop\fire_refine"
+
+def makeDir(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+def makeDirTree(tmp):
+    saveRootDir = os.path.join(saveDirPath, tmp[0])
+
+    if not os.path.exists(saveRootDir):
+        os.mkdir(saveRootDir)
+        clipNameDirPath = os.path.join(saveRootDir, tmp[3])
+        os.mkdir(clipNameDirPath)
+    else:
+        clipNameDirPath = os.path.join(saveRootDir, tmp[3])
+        if not os.path.exists(clipNameDirPath):
+            os.mkdir(clipNameDirPath)
+
+
+#경로 안에 있는 파일 리스트 읽어오기( os.listdir() or glob)
+files = os.listdir(imgDirPath)
+
+
+#반복문을 통해 파일 검사를 한다.
+for file in files:
+    ##파일 명을 "_"로 분할한다.(split, 0은 키워드, 3 동영상 이름)
+    tmp = file.split("_")
+
+    ##저장할 폴더를 만든다.(makeDirTree 함수를 사용한다)
+    saveRootDir = os.path.join(saveDirPath, tmp[0])
+
+
+    if not os.path.exists(saveRootDir):
+        os.mkdir(saveRootDir)
+        clipNameDirPath = os.path.join(saveRootDir, tmp[3])
+        os.mkdir(clipNameDirPath)
+
+    else:
+        clipNameDirPath = os.path.join(saveRootDir, tmp[3])
+        makeDir(clipNameDirPath)
+        # if not os.path.exists(clipNameDirPath):
+        #     os.mkdir(clipNameDirPath)
+
+    oriImagePath = os.path.join(imgDirPath, file)
+    newImagePath = os.path.join(clipNameDirPath, file)
+    shutil.copy2(oriImagePath, newImagePath)
+
+
+
+
+
+
+
+
+##저장할 폴더 이름에 맞게 복사한다.(shutil.copy2)
+
